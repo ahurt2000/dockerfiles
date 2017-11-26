@@ -1,0 +1,17 @@
+## Put here:
+
+# Oracle instalclient 12.1 rpm:
+
+. oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64.rpm
+. oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm
+
+FROM: http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html
+
+copy files from oraclefiles/ to here.
+
+~~ DONN'T follow this directions (Docker really does not like symlinks. by now!)
+and make symlink:
+
+ln -s ../../oraclefiles/oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm oracle-instantclient12.1-basic
+ln -s ../../oraclefiles/oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64.rpm oracle-instantclient12.1-devel
+~~

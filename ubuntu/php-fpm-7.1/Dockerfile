@@ -65,8 +65,7 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; then \
 ##############################
 # Oracle InstantClient && OCI8
 ##############################
-ARG INSTALL_ORACLE=true
-RUN if [ ${INSTALL_ORACLE} = true ]; then \
+
 RUN apt-get update -yqq && \
     apt-get -y install build-essential libaio1 alien
 
@@ -84,7 +83,7 @@ RUN git clone https://github.com/php/php-src.git php7 --depth 1 \
     && ./configure --with-oci8=instantclient,/usr/lib/oracle/12.1/client64/lib \
     && make \
     && make install
-fi;
+
 
 # [A PECL release compatible with PHP 7 is pending](https://bugs.php.net/bug.php?id=71078)
 #RUN curl https://pecl.php.net/get/oci8-2.0.8.tgz > /tmp/oci8.tgz \
