@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
 RUN usermod --non-unique --uid 1000 www-data
 RUN groupmod --non-unique --gid 1000 www-data
@@ -20,13 +20,13 @@ RUN apt-get -qq update \
                           libbz2-dev \
                           libcurl3 \
                           libcurl4-gnutls-dev \
-                          libssl-dev
+                          libssl-dev \
+                          libpcre3-dev
 
 RUN docker-php-ext-configure intl \
     && docker-php-ext-install intl \
                               mbstring \
                               pdo_mysql \
-                              mcrypt \
                               mysqli \
                               zip \
                               calendar \
@@ -36,6 +36,10 @@ RUN docker-php-ext-configure intl \
                               soap \
                               xmlrpc \
                               bz2
+
+#mcrypt deprecated in 7.2 
+
+
 #GD
 RUN apt-get update && apt-get install -y libvpx-dev libjpeg-dev libxpm-dev libpng-dev libfreetype6 libfreetype6-dev
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
@@ -45,11 +49,6 @@ RUN docker-php-ext-install gd
 RUN apt-get update && apt-get install -y libxslt1-dev \
     && docker-php-ext-configure xsl --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
     && docker-php-ext-install xsl
-
-#redis && Xdebug
-#RUN pecl install redis-3.1.4 xdebug-2.5.5\
-#    && pecl install xdebug-2.5.5 \
-#    && docker-php-ext-enable redis
 
 #Xdebug
 RUN curl https://xdebug.org/files/xdebug-2.6.0.tgz > /tmp/xdebug.tgz \
@@ -92,12 +91,6 @@ RUN git clone https://github.com/php/php-src.git php7 --depth 1 \
 #    && mv oci8-2.0.8 /usr/src/php/ext \
 #    && docker-php-ext-install oci8-2.0.8
 
-#redis
-RUN curl https://pecl.php.net/get/redis-3.1.4.tgz > /tmp/redis.tgz \
-    && tar -xpzf /tmp/redis.tgz \
-    && mv redis-3.1.4 /usr/src/php/ext  \
-    && docker-php-ext-install redis-3.1.4
-
 #Stomp for AMPQ
 RUN curl https://pecl.php.net/get/stomp-2.0.1.tgz > /tmp/stomp.tgz \
     && tar -xpzf /tmp/stomp.tgz \
@@ -124,10 +117,10 @@ RUN curl https://pecl.php.net/get/mongodb-1.3.1.tgz > /tmp/mongo.tgz \
     && docker-php-ext-install mongodb-1.3.1
 
 # wkhtmltopdf
-RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.2.1/wkhtmltox-0.12.2.1_linux-jessie-amd64.deb \
-    && apt-get -y install xfonts-base xfonts-75dpi xfonts-utils fontconfig libxext6 libfontconfig1 libjpeg62-turbo libx11-6 libxrender1 \
-    && dpkg -i wkhtmltox-0.12.2.1_linux-jessie-amd64.deb \
-    && rm wkhtmltox-0.12.2.1_linux-jessie-amd64.deb
+#RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.2.1/#wkhtmltox-0.12.2.1_linux-jessie-amd64.deb \
+#    && apt-get -y install xfonts-base xfonts-75dpi xfonts-utils fontconfig libxext6 libfontconfig1 libjpeg62-turbo libx11-6 libxrender1 \
+#    && dpkg -i wkhtmltox-0.12.2.1_linux-jessie-amd64.deb \
+#    && rm wkhtmltox-0.12.2.1_linux-jessie-amd64.deb
 
 
 # Install composer, this needs to be two steps to ensure we get the latest version

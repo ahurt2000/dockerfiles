@@ -1,1 +1,4 @@
 oracle_files/
+oracle/
+!oracle/.gitkeep
+!oracle/README
