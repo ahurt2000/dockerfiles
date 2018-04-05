@@ -8,7 +8,7 @@ RUN mkdir -p /usr/src/php/ext
 RUN apt-get -qq update \
     && apt-get install -y apt-utils \
                           xmlsec1 \
-                          git \
+                          git \                          
                           unzip \
                           vim \
                           wget \
@@ -39,7 +39,6 @@ RUN docker-php-ext-configure intl \
 
 #mcrypt deprecated in 7.2 
 
-
 #GD
 RUN apt-get update && apt-get install -y libvpx-dev libjpeg-dev libxpm-dev libpng-dev libfreetype6 libfreetype6-dev
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
@@ -49,6 +48,27 @@ RUN docker-php-ext-install gd
 RUN apt-get update && apt-get install -y libxslt1-dev \
     && docker-php-ext-configure xsl --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
     && docker-php-ext-install xsl
+
+##############################
+# Oracle InstantClient && OCI8
+##############################
+
+RUN apt-get update -yqq && \
+    apt-get -y install build-essential libaio1 alien
+
+ENV LD_LIBRARY_PATH=/usr/lib/oracle/12.1/
+ENV LD_LIBRARY_PATH=/usr/lib/oracle/12.1/client64/lib/:$LD_LIBRARY_PATH
+
+COPY oracle/oracle-instantclient12.1-basic_12.1.0.2.0-2_amd64.deb /tmp/oracle-instantclient12.1-basic_12.1.0.2.0-2_amd64.deb
+COPY oracle/oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb /tmp/oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb
+RUN dpkg -i /tmp/oracle-instantclient12.1-basic_12.1.0.2.0-2_amd64.deb
+RUN dpkg -i /tmp/oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb
+
+# [A PECL release compatible with PHP 7 is pending](https://bugs.php.net/bug.php?id=71078)
+RUN curl https://pecl.php.net/get/oci8-2.1.8.tgz > /tmp/oci8.tgz \
+    && tar -xzvf /tmp/oci8.tgz \
+    && mv oci8-2.1.8 /usr/src/php/ext \
+    && docker-php-ext-install oci8-2.1.8
 
 #Xdebug
 RUN curl https://xdebug.org/files/xdebug-2.6.0.tgz > /tmp/xdebug.tgz \
@@ -62,34 +82,6 @@ RUN curl https://pecl.php.net/get/redis-3.1.6.tgz > /tmp/redis.tgz \
     && mv redis-3.1.6 /usr/src/php/ext  \
     && docker-php-ext-install redis-3.1.6
 
-##############################
-# Oracle InstantClient && OCI8
-##############################
-
-RUN apt-get update -yqq && \
-    apt-get -y install build-essential libaio1 alien
-
-COPY oracle/oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm /tmp/oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm
-COPY oracle/oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64.rpm /tmp/oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64.rpm
-RUN alien /tmp/oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64.rpm
-RUN alien /tmp/oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64.rpm
-
-RUN dpkg -i oracle-instantclient12.1-basic_12.1.0.2.0-2_amd64.deb
-RUN dpkg -i oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb
-
-RUN git clone https://github.com/php/php-src.git php7 --depth 1 \
-    && cd php7/ext/oci8 \
-    && phpize \
-    && ./configure --with-oci8=instantclient,/usr/lib/oracle/12.1/client64/lib \
-    && make \
-    && make install
-
-
-# [A PECL release compatible with PHP 7 is pending](https://bugs.php.net/bug.php?id=71078)
-#RUN curl https://pecl.php.net/get/oci8-2.0.8.tgz > /tmp/oci8.tgz \
-#    && tar -xzvf /tmp/oci8.tgz \
-#    && mv oci8-2.0.8 /usr/src/php/ext \
-#    && docker-php-ext-install oci8-2.0.8
 
 #Stomp for AMPQ
 RUN curl https://pecl.php.net/get/stomp-2.0.1.tgz > /tmp/stomp.tgz \
@@ -130,11 +122,12 @@ RUN php /tmp/installer --install-dir=/usr/local/bin && ln -s /usr/local/bin/comp
 ADD conf/30-custom.ini /usr/local/etc/php/conf.d/30-custom.ini
 
 RUN apt-get -y install locales
+
 # Set the locale
 RUN locale-gen es_ES.utf8
-ENV LANG es_ES.utf8
-ENV LANGUAGE es_ES:fr
-ENV LC_ALL es_ES.utf8
+ENV LANG es_ES.UTF-8
+ENV LANGUAGE es_ES
+#ENV LC_ALL es_ES.utf8
 
 RUN apt-get -y purge
 
