@@ -1,3 +1,4 @@
-oracle_files/
-oracle/*.deb
-oracle/*.rpm
+oracle_files/*
+oracle/
+!oracle/.gitkeep
+!oracle_files/.gitkeep
