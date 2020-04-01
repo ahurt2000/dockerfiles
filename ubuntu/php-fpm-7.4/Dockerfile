@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.4-fpm
 
 RUN usermod --non-unique --uid 1000 www-data
 RUN groupmod --non-unique --gid 1000 www-data
