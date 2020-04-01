@@ -70,10 +70,10 @@ RUN curl https://pecl.php.net/get/oci8-2.2.0.tgz > /tmp/oci8.tgz \
     && docker-php-ext-install oci8-2.2.0
 
 #Xdebug
-RUN curl https://xdebug.org/files/xdebug-2.6.0.tgz > /tmp/xdebug.tgz \
+RUN curl https://xdebug.org/files/xdebug-2.9.4.tgz > /tmp/xdebug.tgz \
     && tar -xpzf /tmp/xdebug.tgz \
-    && mv xdebug-2.6.0 /usr/src/php/ext \
-    && docker-php-ext-install xdebug-2.6.0
+    && mv xdebug-2.9.4 /usr/src/php/ext \
+    && docker-php-ext-install xdebug-2.9.4
 
 #redis
 RUN curl https://pecl.php.net/get/redis-3.1.6.tgz > /tmp/redis.tgz \
