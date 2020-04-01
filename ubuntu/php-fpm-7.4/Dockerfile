@@ -40,7 +40,7 @@ RUN docker-php-ext-configure intl \
 
 #GD
 RUN apt-get update && apt-get install -y libvpx-dev libjpeg-dev libxpm-dev libpng-dev libfreetype6 libfreetype6-dev
-RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
+RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
 RUN docker-php-ext-install gd
 
 #xsl
