@@ -83,10 +83,10 @@ RUN curl https://pecl.php.net/get/redis-3.1.6.tgz > /tmp/redis.tgz \
 
 
 #Stomp for AMPQ
-RUN curl https://pecl.php.net/get/stomp-2.0.1.tgz > /tmp/stomp.tgz \
+RUN curl https://pecl.php.net/get/stomp-2.0.2.tgz > /tmp/stomp.tgz \
     && tar -xpzf /tmp/stomp.tgz \
-    && mv stomp-2.0.1 /usr/src/php/ext \
-    && docker-php-ext-install stomp-2.0.1
+    && mv stomp-2.0.2 /usr/src/php/ext \
+    && docker-php-ext-install stomp-2.0.2
 
 #LDAP
 RUN apt-get update && apt-get install -y libldap-2.4-2 libsasl2-2 libldb-dev libldap2-dev \
