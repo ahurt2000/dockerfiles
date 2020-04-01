@@ -96,10 +96,10 @@ RUN apt-get update && apt-get install -y libldap-2.4-2 libsasl2-2 libldb-dev lib
     && docker-php-ext-install ldap
 
 #Oauth
-RUN curl https://pecl.php.net/get/oauth-2.0.2.tgz > /tmp/oauth.tgz \
+RUN curl https://pecl.php.net/get/oauth-2.0.5.tgz > /tmp/oauth.tgz \
     && tar -xpzf /tmp/oauth.tgz \
-    && mv oauth-2.0.2 /usr/src/php/ext \
-    &&  docker-php-ext-install oauth-2.0.2
+    && mv oauth-2.0.5 /usr/src/php/ext \
+    &&  docker-php-ext-install oauth-2.0.5
 
 #MongoDB
 RUN curl https://pecl.php.net/get/mongodb-1.3.1.tgz > /tmp/mongo.tgz \
