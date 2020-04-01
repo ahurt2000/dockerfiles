@@ -45,7 +45,7 @@ RUN docker-php-ext-install gd
 
 #xsl
 RUN apt-get update && apt-get install -y libxslt1-dev \
-    && docker-php-ext-configure xsl --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
+    && docker-php-ext-configure xsl \
     && docker-php-ext-install xsl
 
 ##############################
