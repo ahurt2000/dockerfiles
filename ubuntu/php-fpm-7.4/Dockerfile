@@ -64,10 +64,10 @@ RUN dpkg -i /tmp/oracle-instantclient12.1-basic_12.1.0.2.0-2_amd64.deb
 RUN dpkg -i /tmp/oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb
 
 # [A PECL release compatible with PHP 7 is pending](https://bugs.php.net/bug.php?id=71078)
-RUN curl https://pecl.php.net/get/oci8-2.1.8.tgz > /tmp/oci8.tgz \
+RUN curl https://pecl.php.net/get/oci8-2.2.0.tgz > /tmp/oci8.tgz \
     && tar -xzvf /tmp/oci8.tgz \
-    && mv oci8-2.1.8 /usr/src/php/ext \
-    && docker-php-ext-install oci8-2.1.8
+    && mv oci8-2.2.0 /usr/src/php/ext \
+    && docker-php-ext-install oci8-2.2.0
 
 #Xdebug
 RUN curl https://xdebug.org/files/xdebug-2.6.0.tgz > /tmp/xdebug.tgz \
