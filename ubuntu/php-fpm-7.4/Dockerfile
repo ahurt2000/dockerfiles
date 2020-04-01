@@ -18,7 +18,7 @@ RUN apt-get -qq update \
                           libmcrypt-dev \
                           libxml2-dev \
                           libbz2-dev \
-                          libcurl3 \
+                          libcurl4 \
                           libcurl4-gnutls-dev \
                           libssl-dev \
                           libpcre3-dev
