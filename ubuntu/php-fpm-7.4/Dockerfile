@@ -25,7 +25,6 @@ RUN apt-get -qq update \
 
 RUN docker-php-ext-configure intl \
     && docker-php-ext-install intl \
-                              mbstring \
                               pdo_mysql \
                               mysqli \
                               zip \
