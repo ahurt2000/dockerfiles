@@ -102,10 +102,10 @@ RUN curl https://pecl.php.net/get/oauth-2.0.5.tgz > /tmp/oauth.tgz \
     &&  docker-php-ext-install oauth-2.0.5
 
 #MongoDB
-RUN curl https://pecl.php.net/get/mongodb-1.3.1.tgz > /tmp/mongo.tgz \
+RUN curl https://pecl.php.net/get/mongodb-1.3.4.tgz > /tmp/mongo.tgz \
     && tar -xpzf /tmp/mongo.tgz \
-    && mv mongodb-1.3.1 /usr/src/php/ext \
-    && docker-php-ext-install mongodb-1.3.1
+    && mv mongodb-1.3.4 /usr/src/php/ext \
+    && docker-php-ext-install mongodb-1.3.4
 
 # wkhtmltopdf
 #RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.2.1/#wkhtmltox-0.12.2.1_linux-jessie-amd64.deb \
