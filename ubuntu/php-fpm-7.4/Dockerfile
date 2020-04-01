@@ -12,7 +12,7 @@ RUN apt-get -qq update \
                           unzip \
                           vim \
                           wget \
-                          zlib1g-dev \
+                          libzip-dev \
                           libicu-dev \
                           g++ \
                           libmcrypt-dev \
