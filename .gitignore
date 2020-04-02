@@ -2,3 +2,4 @@ oracle_files/*
 oracle/
 !oracle/.gitkeep
 !oracle_files/.gitkeep
+.idea/
