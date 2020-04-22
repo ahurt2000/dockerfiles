@@ -55,13 +55,13 @@ RUN apt-get update && apt-get install -y libxslt1-dev \
 RUN apt-get update -yqq && \
     apt-get -y install build-essential libaio1 alien
 
-ENV LD_LIBRARY_PATH=/usr/lib/oracle/12.1/
-ENV LD_LIBRARY_PATH=/usr/lib/oracle/12.1/client64/lib/:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH=/usr/lib/oracle/12.2/
+ENV LD_LIBRARY_PATH=/usr/lib/oracle/12.2/client64/lib/:$LD_LIBRARY_PATH
 
-COPY oracle/oracle-instantclient12.1-basic_12.1.0.2.0-2_amd64.deb /tmp/oracle-instantclient12.1-basic_12.1.0.2.0-2_amd64.deb
-COPY oracle/oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb /tmp/oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb
-RUN dpkg -i /tmp/oracle-instantclient12.1-basic_12.1.0.2.0-2_amd64.deb
-RUN dpkg -i /tmp/oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb
+COPY oracle/oracle-instantclient12.2-basic-12.2.0.1.0-1.x86_64.rpm /tmp/oracle-instantclient12.2-basic-12.2.0.1.0-1.x86_64.rpm
+COPY oracle/oracle-instantclient12.2-devel-12.2.0.1.0-1.x86_64.rpm /tmp/oracle-instantclient12.2-devel-12.2.0.1.0-1.x86_64.rpm
+RUN alien -i /tmp/oracle-instantclient12.2-basic-12.2.0.1.0-1.x86_64.rpm
+RUN alien -i /tmp/oracle-instantclient12.2-devel-12.2.0.1.0-1.x86_64.rpm
 
 # [A PECL release compatible with PHP 7 is pending](https://bugs.php.net/bug.php?id=71078)
 RUN curl https://pecl.php.net/get/oci8-2.2.0.tgz > /tmp/oci8.tgz \
