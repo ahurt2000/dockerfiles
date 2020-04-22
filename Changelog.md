@@ -1,6 +1,12 @@
 # Changelog
 
-## Versión v1.0.0
+## Version v1.0.1
+
+### Changed
+- Oracle Instant Client updated in `php-fpm-7.4` Dockerfile. Now using version 12.2.
+- New docker image `php-fpm-7.4-oracle-19`. It uses OIC version 19.6.
+
+## Version v1.0.0
 
 ### Added
 - PHP 7.4 Dockerfile and other necesary files
