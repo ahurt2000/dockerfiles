@@ -1,5 +1,10 @@
 # Changelog
 
+## Versión v1.0.1
+
+### Changed
+- Oracle Instant Client updated in php-fpm-7.4 Dockerfile. Now using version 12.2.
+
 ## Versión v1.0.0
 
 ### Added

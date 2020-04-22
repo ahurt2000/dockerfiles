@@ -20,6 +20,7 @@ PHP flavors:
 	~~PHP [5.6.32](php-fpm-5.6.32/README.md)~~ (not ready yet)
 	PHP [7.1](php-fpm-7.1/README.md)
 	PHP [7.2](php-fpm-7.2/README.md)
+	PHP [7.4](php-fpm-7.4/README.md)
 
 Images prepared to work with www-data user.
 
