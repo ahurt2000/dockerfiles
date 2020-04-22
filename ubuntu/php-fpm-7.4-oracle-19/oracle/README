@@ -1,0 +1,22 @@
+## Put here:
+
+# Oracle instantclient 19.6 rpm:
+
+. oracle-instantclient19.6-devel-19.6.0.0.0-1x86_64.rpm
+. oracle-instantclient19.6-basic-19.6.0.0.0-1x86_64.rpm
+
+FROM: https://www.oracle.com/database/technologies/instant-client/linux-x86-64-downloads.html
+
+copy files from oraclefiles/ to here.
+
+Edit library path (in Dockerfile):
+
+ENV LD_LIBRARY_PATH=/usr/lib/oracle/19.6/
+ENV LD_LIBRARY_PATH=/usr/lib/oracle/19.6/client64/lib/:$LD_LIBRARY_PATH
+
+Run (in Dockerfile):
+
+COPY oracle/oracle-instantclient19.6-basic-19.6.0.0.0-1.x86_64.rpm /tmp/oracle-instantclient19.6-basic-19.6.0.0.0-1.x86_64.rpm
+COPY oracle/oracle-instantclient19.6-devel-19.6.0.0.0-1.x86_64.rpm /tmp/oracle-instantclient19.6-devel-19.6.0.0.0-1.x86_64.rpm
+RUN alien -i oracle-instantclient19.6-devel-19.6.0.0.0-1x86_64.rpm
+RUN alien -i oracle-instantclient19.6-basic-19.6.0.0.0-1x86_64.rpm
