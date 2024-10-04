@@ -1,0 +1,8 @@
+Put here:
+
+Oracle instalclient 12.1:
+
+. oracle-instantclient12.1-devel_12.1.0.2.0-2_amd64.deb
+. oracle-instantclient12.1-basic_12.1.0.2.0-2_amd64.deb
+
+FROM http://www.useroam.com/downloads/oracle/
